@@ -58,7 +58,7 @@ def obj2mesh(filename, isVerbose=True):
 
 def main():
     parser = argparse.ArgumentParser(description='Convert .obj to mesh')
-    parser.add_argument('infile', nargs=1, help='path to .obj')
+    parser.add_argument('infile', nargs='+', help='path to .obj')
     parser.add_argument('outfile', nargs='?', help='path to mesh',
                         default=None)
     parser.add_argument('--no-normalization', default=True,
@@ -70,21 +70,21 @@ def main():
         os._exit(1)
 
     args = parser.parse_args()
-    inpath = args.infile[0]
 
-    filename = os.path.basename(os.path.normpath(inpath))
-    if args.outfile is None:
-        outpath = os.path.basename(os.path.normpath(inpath))
-    else:
-        outpath = args.outfile
-        if os.path.isdir(outpath):
-            outpath = os.path.join(outpath, filename)
+    for inpath in args.infile:
+        filename = os.path.basename(os.path.normpath(inpath))
+        if args.outfile is None:
+            outpath = os.path.basename(os.path.normpath(inpath))
+        else:
+            outpath = args.outfile
+            if os.path.isdir(outpath):
+                outpath = os.path.join(outpath, filename)
 
-    mesh = obj2mesh(inpath)
+        mesh = obj2mesh(inpath)
 
-    for name, rows in mesh.iteritems():
-        outfile = '{}.{}'.format(outpath, name)
-        print outfile
-        with open(outfile, 'a') as f:
-            lines = [','.join([str(num) for num in row]) for row in rows]
-            f.write('\n'.join(lines))
+        for name, rows in mesh.iteritems():
+            outfile = '{}.{}'.format(outpath, name)
+            print outfile
+            with open(outfile, 'a') as f:
+                lines = [','.join([str(num) for num in row]) for row in rows]
+                f.write('\n'.join(lines))
