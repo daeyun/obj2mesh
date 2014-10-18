@@ -70,17 +70,16 @@ def main():
         os._exit(1)
 
     args = parser.parse_args()
+    outprefix = args.infile[-1]
 
     for inpath in args.infile:
-        filename = os.path.basename(os.path.normpath(inpath))
-        if args.outfile is None:
-            outpath = os.path.basename(os.path.normpath(inpath))
-        else:
-            outpath = args.outfile
-            if os.path.isdir(outpath):
-                outpath = os.path.join(outpath, filename)
-
         mesh = obj2mesh(inpath)
+
+        filename = os.path.basename(os.path.normpath(inpath))
+        if os.path.isdir(outprefix):
+            outpath = os.path.join(outprefix , filename)
+        else:
+            outpath = outpath + filename
 
         for name, rows in mesh.iteritems():
             outfile = '{}.{}'.format(outpath, name)
