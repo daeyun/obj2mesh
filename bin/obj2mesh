@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+import os
+import sys
+
+project_dir = '../obj2mesh'
+exec_file_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(exec_file_dir, project_dir))
+import obj2mesh
+
+try:
+    obj2mesh.main()
+except:
+    print("Unexpected error:", sys.exc_info()[0])
+    raise
