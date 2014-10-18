@@ -63,8 +63,8 @@ def main():
                         default=None)
     parser.add_argument('--no-normalization', default=True,
                         action='store_false', dest='will_normalize',
-                        help='if true, vertex coortinates will be rescaled to'
-                             'fit in [0, 1] range. (Default: True)')
+                        help='Disable rescaling the vertex coordinates to '
+                             'fit in the [0, 1] range. (enabled by default)')
     if len(sys.argv) == 1:
         parser.print_help()
         os._exit(1)
