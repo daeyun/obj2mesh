@@ -14,7 +14,7 @@ def obj2mesh(filename, isVerbose=True):
         content = f.readlines()
 
     if isVerbose:
-        print filename
+        print(filename)
 
     mesh = {'f': [], 'v': []}
 
@@ -81,9 +81,9 @@ def main():
         else:
             outpath = outpath + filename
 
-        for name, rows in mesh.iteritems():
+        for name, rows in list(mesh.items()):
             outfile = '{}.{}'.format(outpath, name)
-            print outfile
+            print(outfile)
             with open(outfile, 'a') as f:
                 lines = [','.join([str(num) for num in row]) for row in rows]
                 f.write('\n'.join(lines))
